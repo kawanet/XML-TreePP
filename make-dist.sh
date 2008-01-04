@@ -33,6 +33,7 @@ diff README README~ > /dev/null || doit /bin/mv -f README~ README
 doit make dist
 [ -d blib ] && doit /bin/rm -fr blib
 [ -f pm_to_blib ] && doit /bin/rm -f pm_to_blib
+[ -f Makefile ] && doit /bin/rm -f Makefile
 [ -f Makefile.old ] && doit /bin/rm -f Makefile.old
 
 ls -lt *.tar.gz | head -1
