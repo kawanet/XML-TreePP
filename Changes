@@ -1,5 +1,14 @@
 # XML::TreePP Changes
 
+2008/10/26 (0.36)
+    * supports spaces around the "=" sign in attribute (thanks to John)
+      ex. <Elem Attrib = "abc" />
+      http://tech.groups.yahoo.com/group/xml-treepp/message/27
+    * Perl 5.10.0 has a memory leak problem on qr//
+      (thanks to Marcin Guzowski)
+      http://rt.perl.org/rt3/Public/Bug/Display.html?id=59516
+    * Makefile.PL now calls Jcode and HTTP::Lite when needed
+
 2008/01/05 (0.33)
     * Subversion on Google Code
       http://xml-treepp.googlecode.com/svn/trunk/XML-TreePP/

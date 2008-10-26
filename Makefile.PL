@@ -15,4 +15,10 @@ my $mm = $ExtUtils::MakeMaker::VERSION;
 $mm =~ s/[^\d\.]+//g;
 $opt->{LICENSE} = 'perl' if ( $mm >= 6.3001 );
 
+my $PERL581 = 1 if ( $] >= 5.008001 );
+$opt->{PREREQ_PM}->{Jcode} = '0' unless $PERL581;
+
+eval { require 'LWP/UserAgent.pm'; };
+$opt->{PREREQ_PM}->{'HTTP::Lite'} = '0' unless $LWP::UserAgent::VERSION;
+
 WriteMakefile( %$opt );

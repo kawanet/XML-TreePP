@@ -496,7 +496,8 @@ sub write {
     my $apre = $self->{attr_prefix} if exists $self->{attr_prefix};
     $apre = $ATTR_PREFIX unless defined $apre;
     local $self->{__attr_prefix_len} = length($apre);
-    local $self->{__attr_prefix_rex} = defined $apre ? qr/^\Q$apre\E/s : undef;
+#    local $self->{__attr_prefix_rex} = defined $apre ? qr/^\Q$apre\E/s : undef;
+    local $self->{__attr_prefix_rex} = $apre;
 
     local $self->{__indent};
     if ( exists $self->{indent} && $self->{indent} ) {
@@ -760,7 +761,7 @@ sub xml_to_flat {
             unless ( $node->{endTag} ) {
                 my $attr;
                 while ( $contElem =~ m{
-                    ([^\s\=\"\']+)=(?:(")(.*?)"|'(.*?)')
+                    ([^\s\=\"\']+)\s*=\s*(?:(")(.*?)"|'(.*?)')
                 }sxg ) {
                     my $key = $1;
                     my $val = &xml_unescape( $2 ? $3 : $4 );
@@ -936,8 +937,8 @@ sub hash_to_xml {
 
     foreach my $keys ( $firstkeys, $allkeys, $lastkeys ) {
         next unless ref $keys;
-        my $elemkey = $prelen ? [ grep { $_ !~ $pregex } @$keys ] : $keys;
-        my $attrkey = $prelen ? [ grep { $_ =~ $pregex } @$keys ] : [];
+        my $elemkey = $prelen ? [ grep { substr($_,0,$prelen) ne $pregex } @$keys ] : $keys;
+        my $attrkey = $prelen ? [ grep { substr($_,0,$prelen) eq $pregex } @$keys ] : [];
 
         foreach my $key ( @$elemkey ) {
             my $val = $hash->{$key};
