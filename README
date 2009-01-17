@@ -1,8 +1,9 @@
 NAME
-    XML::TreePP -- Pure Perl implementation for parsing/writing xml files
+    XML::TreePP -- Pure Perl implementation for parsing/writing XML
+    documents
 
 SYNOPSIS
-    parse xml file into hash tree
+    parse an XML document from file into hash tree:
 
         use XML::TreePP;
         my $tpp = XML::TreePP->new();
@@ -10,7 +11,7 @@ SYNOPSIS
         print "Title: ", $tree->{"rdf:RDF"}->{item}->[0]->{title}, "\n";
         print "URL:   ", $tree->{"rdf:RDF"}->{item}->[0]->{link}, "\n";
 
-    write xml as string from hash tree
+    write an XML document as string from hash tree:
 
         use XML::TreePP;
         my $tpp = XML::TreePP->new();
@@ -24,7 +25,7 @@ SYNOPSIS
         my $xml = $tpp->write( $tree );
         print $xml;
 
-    get remote xml file with HTTP-GET and parse it into hash tree
+    get a remote XML document by HTTP-GET and parse it into hash tree:
 
         use XML::TreePP;
         my $tpp = XML::TreePP->new();
@@ -32,7 +33,7 @@ SYNOPSIS
         print "Title: ", $tree->{"rdf:RDF"}->{channel}->{title}, "\n";
         print "URL:   ", $tree->{"rdf:RDF"}->{channel}->{link}, "\n";
 
-    get remote xml file with HTTP-POST and parse it into hash tree
+    get a remote XML document by HTTP-POST and parse it into hash tree:
 
         use XML::TreePP;
         my $tpp = XML::TreePP->new( force_array => [qw( item )] );
@@ -44,14 +45,15 @@ SYNOPSIS
         print "Desc: ", $tree->{rss}->{channel}->{item}->[0]->{description}, "\n";
 
 DESCRIPTION
-    XML::TreePP module parses XML file and expands it for a hash tree. And
-    also generate XML file from a hash tree. This is a pure Perl
-    implementation. You can also download XML from remote web server like
-    XMLHttpRequest object at JavaScript language.
+    XML::TreePP module parses an XML document and expands it for a hash
+    tree. This generates an XML document from a hash tree as the opposite
+    way around. This is a pure Perl implementation and requires no modules
+    depended. This can also fetch and parse an XML document from remote web
+    server like the XMLHttpRequest object does at JavaScript language.
 
 EXAMPLES
   Parse XML file
-    Sample XML source:
+    Sample XML document:
 
         <?xml version="1.0" encoding="UTF-8"?>
         <family name="Kawasaki">
@@ -149,42 +151,42 @@ METHODS
         $tpp->get( 'option_name' );
 
   parse
-    This method reads XML source and returns a hash tree converted. The
-    first argument is a scalar or a reference to a scalar.
+    This method reads an XML document by string and returns a hash tree
+    converted. The first argument is a scalar or a reference to a scalar.
 
             $tree = $tpp->parse( $source );
 
   parsefile
-    This method reads a XML file and returns a hash tree converted. The
-    first argument is a filename.
+    This method reads an XML document by file and returns a hash tree
+    converted. The first argument is a filename.
 
         $tree = $tpp->parsefile( $file );
 
   parsehttp
-    This method receives a XML file from a remote server via HTTP and
+    This method receives an XML document from a remote server via HTTP and
     returns a hash tree converted.
 
         $tree = $tpp->parsehttp( $method, $url, $body, $head );
 
     $method is a method of HTTP connection: GET/POST/PUT/DELETE $url is an
-    URI of a XML file. $body is a request body when you use POST method.
+    URI of an XML file. $body is a request body when you use POST method.
     $head is a request headers as a hash ref. LWP::UserAgent module or
     HTTP::Lite module is required to fetch a file.
 
         ( $tree, $xml, $code ) = $tpp->parsehttp( $method, $url, $body, $head );
 
-    In array context, This method returns also raw XML source received and
+    In array context, This method returns also raw XML document received and
     HTTP response's status code.
 
   write
-    This method parses a hash tree and returns a XML source generated.
+    This method parses a hash tree and returns an XML document as a string.
 
         $source = $tpp->write( $tree, $encode );
 
     $tree is a reference to a hash tree.
 
   writefile
-    This method parses a hash tree and writes a XML source into a file.
+    This method parses a hash tree and writes an XML document into a file.
 
         $tpp->writefile( $file, $tree, $encode );
 
@@ -216,7 +218,7 @@ OPTIONS FOR PARSING XML
 
   cdata_scalar_ref
     This option allows you to convert a cdata section into a reference for
-    scalar on parsing XML source.
+    scalar on parsing an XML document.
 
         $tpp->set( cdata_scalar_ref => 1 );
 
@@ -272,10 +274,20 @@ OPTIONS FOR PARSING XML
 
     A hash for <child> element above is blessed to "MyElement::child" class.
 
+  xml_deref
+    This dereferences the character references, like &#xEB;, &#28450; etc.,
+    in XML document
+
+        $tpp->set( xml_deref => 1 );
+
+    Note that, for security reasons and your convenient, the entity
+    references, &amp;, &lt;, &gt;, &apos; and &quot;, and the character
+    references up to U+007F are dereferenced without xml_deref per default.
+
 OPTIONS FOR WRITING XML
   first_out
     This option allows you to specify a list of element/attribute names
-    which should always appears at first on output XML code.
+    which should always appears at first on output XML document.
 
         $tpp->set( first_out => [ 'link', 'title', '-type' ] );
 
@@ -283,7 +295,7 @@ OPTIONS FOR WRITING XML
 
   last_out
     This option allows you to specify a list of element/attribute names
-    which should always appears at last on output XML code.
+    which should always appears at last on output XML document.
 
         $tpp->set( last_out => [ 'items', 'item', 'entry' ] );
 
@@ -292,17 +304,17 @@ OPTIONS FOR WRITING XML
 
         $tpp->set( indent => 2 );
 
-    This doesn't strictly follow the XML Document Spec but does looks nice.
+    This doesn't strictly follow the XML specification but does looks nice.
 
   xml_decl
-    This module generates an XML declaration on writing an XML code per
-    default. This option forces to change or leave it.
+    This module inserts an XML declaration on top of the XML document
+    generated per default. This option forces to change or leave it.
 
         $tpp->set( xml_decl => '' );
 
   output_encoding
-    This option allows you to specify a encoding of xml file generated by
-    write/writefile methods.
+    This option allows you to specify a encoding of the XML document
+    generated by write/writefile methods.
 
         $tpp->set( output_encoding => 'UTF-8' );
 
@@ -314,7 +326,7 @@ OPTIONS FOR WRITING XML
 OPTIONS FOR BOTH
   utf8_flag
     This makes utf8 flag on for every element's value parsed and makes it on
-    for an XML code generated as well.
+    for the XML document generated as well.
 
         $tpp->set( utf8_flag => 1 );
 
@@ -339,7 +351,7 @@ OPTIONS FOR BOTH
 
   ignore_error
     This module calls Carp::croak function on an error per default. This
-    option makes all errors ignored and just return.
+    option makes all errors ignored and just returns.
 
         $tpp->set( ignore_error => 1 );
 
@@ -355,7 +367,7 @@ AUTHOR
     Yusuke Kawasaki, http://www.kawa.net/
 
 COPYRIGHT AND LICENSE
-    Copyright (c) 2006-2008 Yusuke Kawasaki. All rights reserved. This
+    Copyright (c) 2006-2009 Yusuke Kawasaki. All rights reserved. This
     program is free software; you can redistribute it and/or modify it under
     the same terms as Perl itself.
 

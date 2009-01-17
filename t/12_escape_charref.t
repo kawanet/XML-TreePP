@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------
     use strict;
-    use Test::More tests => 25;
+    use Test::More tests => 23;
     BEGIN { use_ok('XML::TreePP') };
 # ----------------------------------------------------------------
     my $tpp = XML::TreePP->new();
@@ -36,9 +36,11 @@
     # ascii/latin chars are escaped/unescaped.
     is( $tree->{root}->{t6_space}, "\x20\x20",          "parse: t6_space" );
     is( $tree->{root}->{t7_ascii}, "\x21\x7F\x21\x7F",  "parse: t7_ascii" );
-    my $u80 = "\xC2\x80";   # is UTF-8 of "\x80"
-    my $uFF = "\xC3\xBF";   # is UTF-8 of "\xFF"
-    is( $tree->{root}->{t8_latin}, "$u80$uFF$u80$uFF",  "parse: t8_latin" );
+
+#   XML::TreePP 0.37 ignores between U+0080 and U+00FF without xml_deref
+#   my $u80 = "\xC2\x80";   # is UTF-8 of "\x80"
+#   my $uFF = "\xC3\xBF";   # is UTF-8 of "\xFF"
+#   is( $tree->{root}->{t8_latin}, "$u80$uFF$u80$uFF",  "parse: t8_latin" );
 
     # CJK > 0xFF are not escaped/unescaped.
     is( $tree->{root}->{t9_kanji}, "&#28450;&#x6F22;",  "parse: t9_kanji" );
@@ -60,7 +62,9 @@
     # ascii/latin chars are escaped/unescaped.
     like( $back, qr/ <t6_space> \x20\x20            < /x,   "write: t6_space" );
     like( $back, qr/ <t7_ascii> !&#127;!&#127;      < /x,   "write: t7_ascii" );
-    like( $back, qr/ <t8_latin> $u80$uFF$u80$uFF    < /x,   "write: t8_latin" );
+
+#   XML::TreePP 0.37 ignores between U+0080 and U+00FF without xml_deref
+#   like( $back, qr/ <t8_latin> $u80$uFF$u80$uFF    < /x,   "write: t8_latin" );
 
     # CJK > 0xFF are not escaped/unescaped.
     like( $back, qr/ <t9_kanji> &#28450;&#x6F22;    < /x,   "write: t9_kanji" );

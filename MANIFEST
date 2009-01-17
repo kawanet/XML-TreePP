@@ -67,3 +67,6 @@ t/41_writefile_encode.t
 t/42_cdata_comment.t
 t/43_encoding_quote.t
 t/44_utf8_bom.t
+t/45_attr_space.t
+t/46_xml_deref.t
+t/47_xml_deref_utf8.t

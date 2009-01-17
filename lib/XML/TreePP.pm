@@ -1,10 +1,10 @@
 =head1 NAME
 
-XML::TreePP -- Pure Perl implementation for parsing/writing xml files
+XML::TreePP -- Pure Perl implementation for parsing/writing XML documents
 
 =head1 SYNOPSIS
 
-parse xml file into hash tree
+parse an XML document from file into hash tree:
 
     use XML::TreePP;
     my $tpp = XML::TreePP->new();
@@ -12,7 +12,7 @@ parse xml file into hash tree
     print "Title: ", $tree->{"rdf:RDF"}->{item}->[0]->{title}, "\n";
     print "URL:   ", $tree->{"rdf:RDF"}->{item}->[0]->{link}, "\n";
 
-write xml as string from hash tree
+write an XML document as string from hash tree:
 
     use XML::TreePP;
     my $tpp = XML::TreePP->new();
@@ -26,7 +26,7 @@ write xml as string from hash tree
     my $xml = $tpp->write( $tree );
     print $xml;
 
-get remote xml file with HTTP-GET and parse it into hash tree
+get a remote XML document by HTTP-GET and parse it into hash tree:
 
     use XML::TreePP;
     my $tpp = XML::TreePP->new();
@@ -34,7 +34,7 @@ get remote xml file with HTTP-GET and parse it into hash tree
     print "Title: ", $tree->{"rdf:RDF"}->{channel}->{title}, "\n";
     print "URL:   ", $tree->{"rdf:RDF"}->{channel}->{link}, "\n";
 
-get remote xml file with HTTP-POST and parse it into hash tree
+get a remote XML document by HTTP-POST and parse it into hash tree:
 
     use XML::TreePP;
     my $tpp = XML::TreePP->new( force_array => [qw( item )] );
@@ -47,17 +47,17 @@ get remote xml file with HTTP-POST and parse it into hash tree
 
 =head1 DESCRIPTION
 
-XML::TreePP module parses XML file and expands it for a hash tree.
-And also generate XML file from a hash tree.
-This is a pure Perl implementation.
-You can also download XML from remote web server
-like XMLHttpRequest object at JavaScript language.
+XML::TreePP module parses an XML document and expands it for a hash tree.
+This generates an XML document from a hash tree as the opposite way around.
+This is a pure Perl implementation and requires no modules depended.
+This can also fetch and parse an XML document from remote web server
+like the XMLHttpRequest object does at JavaScript language.
 
 =head1 EXAMPLES
 
 =head2 Parse XML file
 
-Sample XML source:
+Sample XML document:
 
     <?xml version="1.0" encoding="UTF-8"?>
     <family name="Kawasaki">
@@ -161,39 +161,39 @@ This method returns a current option value for C<option_name>.
 
 =head2 parse
 
-This method reads XML source and returns a hash tree converted.
+This method reads an XML document by string and returns a hash tree converted.
 The first argument is a scalar or a reference to a scalar.
 
         $tree = $tpp->parse( $source );
 
 =head2 parsefile
 
-This method reads a XML file and returns a hash tree converted.
+This method reads an XML document by file and returns a hash tree converted.
 The first argument is a filename.
 
     $tree = $tpp->parsefile( $file );
 
 =head2 parsehttp
 
-This method receives a XML file from a remote server via HTTP and
+This method receives an XML document from a remote server via HTTP and
 returns a hash tree converted.
 
     $tree = $tpp->parsehttp( $method, $url, $body, $head );
 
 C<$method> is a method of HTTP connection: GET/POST/PUT/DELETE
-C<$url> is an URI of a XML file.
+C<$url> is an URI of an XML file.
 C<$body> is a request body when you use POST method.
 C<$head> is a request headers as a hash ref.
 L<LWP::UserAgent> module or L<HTTP::Lite> module is required to fetch a file.
 
     ( $tree, $xml, $code ) = $tpp->parsehttp( $method, $url, $body, $head );
 
-In array context, This method returns also raw XML source received
+In array context, This method returns also raw XML document received
 and HTTP response's status code.
 
 =head2 write
 
-This method parses a hash tree and returns a XML source generated.
+This method parses a hash tree and returns an XML document as a string.
 
     $source = $tpp->write( $tree, $encode );
 
@@ -201,7 +201,7 @@ C<$tree> is a reference to a hash tree.
 
 =head2 writefile
 
-This method parses a hash tree and writes a XML source into a file.
+This method parses a hash tree and writes an XML document into a file.
 
     $tpp->writefile( $file, $tree, $encode );
 
@@ -238,7 +238,7 @@ Note that the special wildcard name C<'*'> means all elements.
 =head2 cdata_scalar_ref
 
 This option allows you to convert a cdata section into a reference
-for scalar on parsing XML source.
+for scalar on parsing an XML document.
 
     $tpp->set( cdata_scalar_ref => 1 );
 
@@ -297,12 +297,23 @@ Each class is named horizontally under the direct child of C<MyElement>.
 
 A hash for <child> element above is blessed to C<MyElement::child> class.
 
+=head2 xml_deref
+
+This dereferences the character references, like &#xEB;, &#28450; etc.,
+in XML document 
+
+    $tpp->set( xml_deref => 1 );
+
+Note that, for security reasons and your convenient, the entity references, 
+&amp;, &lt;, &gt;, &apos; and &quot;, and the character references up to 
+U+007F are dereferenced without xml_deref per default.
+
 =head1 OPTIONS FOR WRITING XML
 
 =head2 first_out
 
 This option allows you to specify a list of element/attribute
-names which should always appears at first on output XML code.
+names which should always appears at first on output XML document.
 
     $tpp->set( first_out => [ 'link', 'title', '-type' ] );
 
@@ -311,7 +322,7 @@ The default value is null, it means alphabetical order is used.
 =head2 last_out
 
 This option allows you to specify a list of element/attribute
-names which should always appears at last on output XML code.
+names which should always appears at last on output XML document.
 
     $tpp->set( last_out => [ 'items', 'item', 'entry' ] );
 
@@ -321,18 +332,18 @@ This makes the output more human readable by indenting appropriately.
 
     $tpp->set( indent => 2 );
 
-This doesn't strictly follow the XML Document Spec but does looks nice.
+This doesn't strictly follow the XML specification but does looks nice.
 
 =head2 xml_decl
 
-This module generates an XML declaration on writing an XML code per default.
-This option forces to change or leave it.
+This module inserts an XML declaration on top of the XML document generated 
+per default. This option forces to change or leave it.
 
     $tpp->set( xml_decl => '' );
 
 =head2 output_encoding
 
-This option allows you to specify a encoding of xml file generated
+This option allows you to specify a encoding of the XML document generated
 by write/writefile methods.
 
     $tpp->set( output_encoding => 'UTF-8' );
@@ -347,7 +358,7 @@ C<UTF-8>. The default value is C<UTF-8> which is recommended encoding.
 =head2 utf8_flag
 
 This makes utf8 flag on for every element's value parsed
-and makes it on for an XML code generated as well.
+and makes it on for the XML document generated as well.
 
     $tpp->set( utf8_flag => 1 );
 
@@ -375,7 +386,7 @@ The default key is C<#text>.
 =head2 ignore_error
 
 This module calls Carp::croak function on an error per default.
-This option makes all errors ignored and just return.
+This option makes all errors ignored and just returns.
 
     $tpp->set( ignore_error => 1 );
 
@@ -395,7 +406,7 @@ Yusuke Kawasaki, http://www.kawa.net/
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2006-2008 Yusuke Kawasaki. All rights reserved.
+Copyright (c) 2006-2009 Yusuke Kawasaki. All rights reserved.
 This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
@@ -407,13 +418,15 @@ use Carp;
 use Symbol;
 
 use vars qw( $VERSION );
-$VERSION = '0.33';
+$VERSION = '0.37';
 
 my $XML_ENCODING      = 'UTF-8';
 my $INTERNAL_ENCODING = 'UTF-8';
 my $USER_AGENT        = 'XML-TreePP/'.$VERSION.' ';
 my $ATTR_PREFIX       = '-';
 my $TEXT_NODE_KEY     = '#text';
+my $USE_ENCODE_PM     = ( $] >= 5.008 );
+my $ALLOW_UTF8_FLAG   = ( $] >= 5.008001 );
 
 sub new {
     my $package = shift;
@@ -461,7 +474,7 @@ sub writefile {
     my $encode = shift;
     return $self->die( 'Invalid filename' ) unless defined $file;
     my $text = $self->write( $tree, $encode );
-    if ( $] >= 5.008001 && utf8::is_utf8( $text ) ) {
+    if ( $ALLOW_UTF8_FLAG && utf8::is_utf8( $text ) ) {
         utf8::encode( $text );
     }
     $self->write_raw_xml( $file, $text );
@@ -720,6 +733,17 @@ sub xml_to_flat {
     my $prefix = $self->{attr_prefix};
     my $ixhash = ( exists $self->{use_ixhash} && $self->{use_ixhash} );
 
+    my $deref = \&xml_unescape;
+    my $xml_deref = ( exists $self->{xml_deref} && $self->{xml_deref} );
+    if ( $xml_deref ) {
+        if (( exists $self->{utf8_flag} && $self->{utf8_flag} ) ||
+            ( $ALLOW_UTF8_FLAG && utf8::is_utf8( $$textref ))) {
+            $deref = \&xml_deref_string;
+        } else {
+            $deref = \&xml_deref_octet;
+        }
+    }
+
     while ( $$textref =~ m{
         ([^<]*) <
         ((
@@ -764,7 +788,7 @@ sub xml_to_flat {
                     ([^\s\=\"\']+)\s*=\s*(?:(")(.*?)"|'(.*?)')
                 }sxg ) {
                     my $key = $1;
-                    my $val = &xml_unescape( $2 ? $3 : $4 );
+                    my $val = &$deref( $2 ? $3 : $4 );
                     if ( ! ref $attr ) {
                         $attr = {};
                         tie( %$attr, 'Tie::IxHash' ) if $ixhash;
@@ -793,7 +817,7 @@ sub xml_to_flat {
             $self->warn( "Invalid Tag: <$match>" );
         }
         if ( $follow =~ /\S/ ) {                # text node
-            my $val = &xml_unescape($follow);
+            my $val = &$deref($follow);
             push( @$flat, $val );
         }
     }
@@ -1084,27 +1108,29 @@ sub encode_from_to {
         $to   = 'EUC-JP' if ( $to   =~ /\beuc-?jp-?(win|ms)$/i );
     }
 
-    if ( $from =~ /^utf-?8$/i ) {
+    my $RE_IS_UTF8 = qr/^utf-?8$/i;
+    if ( $from =~ $RE_IS_UTF8 ) {
         $$txtref =~ s/^\xEF\xBB\xBF//s;         # UTF-8 BOM (Byte Order Mark)
     }
 
     my $setflag = $self->{utf8_flag} if exists $self->{utf8_flag};
-    if ( $] < 5.008001 && $setflag ) {
+    if ( ! $ALLOW_UTF8_FLAG && $setflag ) {
         return $self->die( "Perl 5.8.1 is required for utf8_flag: $]" );
     }
 
-    if ( $] >= 5.008 ) {
+    if ( $USE_ENCODE_PM ) {
         &load_encode();
-        my $check = ( $Encode::VERSION < 2.13 ) ? 0x400 : Encode::FB_XMLCREF();
-        if ( $] >= 5.008001 && utf8::is_utf8( $$txtref ) ) {
-            if ( $to =~ /^utf-?8$/i ) {
+        my $encver = ( $Encode::VERSION =~ /^([\d\.]+)/ )[0];
+        my $check = ( $encver < 2.13 ) ? 0x400 : Encode::FB_XMLCREF();
+        if ( $ALLOW_UTF8_FLAG && utf8::is_utf8( $$txtref ) ) {
+            if ( $to =~ $RE_IS_UTF8 ) {
                 # skip
             } else {
                 $$txtref = Encode::encode( $to, $$txtref, $check );
             }
         } else {
             $$txtref = Encode::decode( $from, $$txtref );
-            if ( $to =~ /^utf-?8$/i && $setflag ) {
+            if ( $to =~ $RE_IS_UTF8 && $setflag ) {
                 # skip
             } else {
                 $$txtref = Encode::encode( $to, $$txtref, $check );
@@ -1196,35 +1222,57 @@ sub xml_unescape {
     my $str = shift;
     my $map = {qw( quot " lt < gt > apos ' amp & )};
     $str =~ s{
-        (&(?:\#(\d+)|\#x([0-9a-fA-F]+)|(quot|lt|gt|apos|amp));)
+        (&(?:\#(\d{1,3})|\#x([0-9a-fA-F]{1,2})|(quot|lt|gt|apos|amp));)
     }{
-        $4 ? $map->{$4} : &char_deref($1,$2,$3);
+        $4 ? $map->{$4} : &code_to_ascii( $3 ? hex($3) : $2, $1 );
     }gex;
     $str;
 }
 
-sub char_deref {
-    my( $str, $dec, $hex ) = @_;
-    if ( defined $dec ) {
-        return &code_to_utf8( $dec ) if ( $dec < 256 );
+sub xml_deref_octet {
+    my $str = shift;
+    my $map = {qw( quot " lt < gt > apos ' amp & )};
+    $str =~ s{
+        (&(?:\#(\d{1,7})|\#x([0-9a-fA-F]{1,6})|(quot|lt|gt|apos|amp));)
+    }{
+        $4 ? $map->{$4} : &code_to_utf8( $3 ? hex($3) : $2, $1 );
+    }gex;
+    $str;
+}
+
+sub xml_deref_string {
+    my $str = shift;
+    my $map = {qw( quot " lt < gt > apos ' amp & )};
+    $str =~ s{
+        (&(?:\#(\d{1,7})|\#x([0-9a-fA-F]{1,6})|(quot|lt|gt|apos|amp));)
+    }{
+        $4 ? $map->{$4} : pack( U => $3 ? hex($3) : $2 );
+    }gex;
+    $str;
+}
+
+sub code_to_ascii {
+    my $code = shift;
+    if ( $code <= 0x007F ) {
+        return pack( C => $code );
     }
-    elsif ( defined $hex ) {
-        my $num = hex($hex);
-        return &code_to_utf8( $num ) if ( $num < 256 );
-    }
-    return $str;
+    return shift if scalar @_;      # default value
+    sprintf( '&#%d;', $code );
 }
 
 sub code_to_utf8 {
     my $code = shift;
-    if ( $code < 128 ) {
+    if ( $code <= 0x007F ) {
         return pack( C => $code );
     }
-    elsif ( $code < 256 ) {
+    elsif ( $code <= 0x07FF ) {
         return pack( C2 => 0xC0|($code>>6), 0x80|($code&0x3F));
     }
-    elsif ( $code < 65536 ) {
-        return pack( C3 => 0xC0|($code>>12), 0x80|(($code>>6)&0x3F), 0x80|($code&0x3F));
+    elsif ( $code <= 0xFFFF ) {
+        return pack( C3 => 0xE0|($code>>12), 0x80|(($code>>6)&0x3F), 0x80|($code&0x3F));
+    }
+    elsif ( $code <= 0x10FFFF ) {
+        return pack( C4 => 0xF0|($code>>18), 0x80|(($code>>12)&0x3F), 0x80|(($code>>6)&0x3F), 0x80|($code&0x3F));
     }
     return shift if scalar @_;      # default value
     sprintf( '&#x%04X;', $code );

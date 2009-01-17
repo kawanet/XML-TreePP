@@ -21,7 +21,12 @@ diff MANIFEST MANIFEST~ > /dev/null || doit /bin/mv -f MANIFEST~ MANIFEST
 
 [ -f Makefile ] && doit make clean
 doit perl Makefile.PL
-doit make
+
+[ -f META.yml ] || doit touch META.yml
+doit make metafile
+newmeta=`ls -t */META.yml | head -1`
+diff META.yml $newmeta > /dev/null || doit /bin/cp -f $newmeta META.yml
+
 doit make disttest
 
 main=`grep 'lib/.*pm$' < MANIFEST | head -1`

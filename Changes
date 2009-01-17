@@ -1,5 +1,15 @@
 # XML::TreePP Changes
 
+2009/01/17 (0.37)
+    * new option: xml_deref dereferences the character references, 
+      like &#xEB;, &#28450; etc. 
+      Now UTF-8 flag is correctly treated. (thanks to haarg)
+      http://rt.cpan.org/Public/Bug/Display.html?id=42347
+    * without xml_deref option, the character references between 
+      U+0080 and U+00FF are not dereferenced any more.
+    * supports Perl 5.8.4 which includes Encode 1.99_01. (thanks to SAPER)
+      http://rt.cpan.org/Public/Bug/Display.html?id=41986
+
 2008/10/26 (0.36)
     * supports spaces around the "=" sign in attribute (thanks to John)
       ex. <Elem Attrib = "abc" />
@@ -119,11 +129,11 @@
     * parsehttp() method returns a hash tree and xml source on array context.
 
 2006/02/22 (0.03)
-    + Changes
+    * Changes
 
 2006/02/21 (0.02)
     * Change encoding from ISO-8859-1 to UTF-8 is natively supported.
-    + t/force_array.t t/parse.t t/parsefile.t t/parsehttp.t t/write.t
+    * t/force_array.t t/parse.t t/parsefile.t t/parsehttp.t t/write.t
       t/index.rdf t/family.xml
     * Test scripts added.
 
