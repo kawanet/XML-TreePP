@@ -3,13 +3,14 @@
 <channel rdf:about="http://www.kawa.net/xp/index-e.html">
 <title>Kawa.net xp - ajax/JavaScript/Perl/CGI by Yusuke Kawasaki</title>
 <link>http://www.kawa.net/xp/index-e.html</link>
-<dc:date>2009-01-13T00:36:00+09:00</dc:date>
+<dc:date>2009-01-17T23:54:00+09:00</dc:date>
 <dc:language>en</dc:language>
 <dc:rights>Copyright 1995-2009 Yusuke Kawasaki. All rights reserved.</dc:rights>
 <description>Yusuke Kawasaki&apos;s homepage from Japan. Ajax/JavaScript/Perl/CGI/etc. technical articles and photos.</description>
 <image rdf:resource="http://www.kawa.net/xp/images/xp-title-128x32.gif" />
 <items>
 <rdf:Seq>
+<rdf:li rdf:resource="http://www.kawa.net/works/perl/treepp/treepp-e.html" />
 <rdf:li rdf:resource="http://youtube.com/?v=Pcn1Unf34zE" />
 <rdf:li rdf:resource="http://youtube.com/?v=axskKB9surs" />
 <rdf:li rdf:resource="http://youtube.com/?v=VBkIuBMG72o" />
@@ -41,7 +42,6 @@
 <rdf:li rdf:resource="http://kawanet.blogspot.com/2008/06/jui-2008-tokyo-was-over.html" />
 <rdf:li rdf:resource="http://tech.groups.yahoo.com/group/xml-feedpp/message/30" />
 <rdf:li rdf:resource="http://tech.groups.yahoo.com/group/xml-treepp/message/28" />
-<rdf:li rdf:resource="http://www.kawa.net/works/perl/treepp/treepp-e.html" />
 <rdf:li rdf:resource="http://www.kawa.net/works/perl/feedpp/feedpp-e.html" />
 <rdf:li rdf:resource="http://youtube.com/?v=FUFOWlhnS1Y" />
 <rdf:li rdf:resource="http://tech.groups.yahoo.com/group/xml-feedpp/message/23" />
@@ -107,6 +107,30 @@
 <title>Kawa.net xp - ajax/JavaScript/Perl/CGI by Yusuke Kawasaki</title>
 <link>http://www.kawa.net/xp/index-e.html</link>
 </image>
+<item rdf:about="http://www.kawa.net/works/perl/treepp/treepp-e.html">
+<title>[Perl] XML::TreePP - A pure Perl implementation for parsing/writing xml file</title>
+<link>http://www.kawa.net/works/perl/treepp/treepp-e.html</link>
+<dc:date>2009-01-17T23:54:00+09:00</dc:date>
+<dc:subject>Perl</dc:subject>
+<description>XML::TreePP module parses XML file and expand it for a hash tree.
+And also this generates XML file from a hash tree.
+This module is a pure Perl implementation.
+You can also fetch an XML file from remote web server
+like an XMLHttpRequest object in JavaScript language.
+I think that XML::TreePP is enough fast and easy to use!
+Released version:
+XML-TreePP-0.36.tar.gz
+TARGZ
+CPAN
+Subversion repository:
+http://xml-treepp.googlecode.com/svn/trunk/XML-TreePP/
+SVN
+Documents:
+README
+README
+Changes
+Changes</description>
+</item>
 <item rdf:about="http://youtube.com/?v=Pcn1Unf34zE">
 <title>A path to Ganga Fuji Home in Varanasi / バラナシのガンガー・フジ・ホームの行き方</title>
 <link>http://youtube.com/?v=Pcn1Unf34zE</link>
@@ -483,30 +507,6 @@ Rs.25 (50円)。
 <dc:creator>Kawasaki Yusuke</dc:creator>
 <dc:date>2008-10-26T06:47:22Z</dc:date>
 <description>Marcin, The problem you told me was a bug on Perl 5.10.0. http://rt.perl.org/rt3/Public/Bug/Display.html?id=59516 Anyway, as many installed environments would</description>
-</item>
-<item rdf:about="http://www.kawa.net/works/perl/treepp/treepp-e.html">
-<title>[Perl] XML::TreePP - A pure Perl implementation for parsing/writing xml file</title>
-<link>http://www.kawa.net/works/perl/treepp/treepp-e.html</link>
-<dc:date>2008-10-26T15:36:00+09:00</dc:date>
-<dc:subject>Perl</dc:subject>
-<description>XML::TreePP module parses XML file and expand it for a hash tree.
-And also this generates XML file from a hash tree.
-This module is a pure Perl implementation.
-You can also fetch an XML file from remote web server
-like an XMLHttpRequest object in JavaScript language.
-I think that XML::TreePP is enough fast and easy to use!
-Released version:
-XML-TreePP-0.36.tar.gz
-TARGZ
-CPAN
-Subversion repository:
-http://xml-treepp.googlecode.com/svn/trunk/XML-TreePP/
-SVN
-Documents:
-README
-README
-Changes
-Changes</description>
 </item>
 <item rdf:about="http://www.kawa.net/works/perl/feedpp/feedpp-e.html">
 <title>[Perl] XML::FeedPP - Parse/write/merge/edit RSS/RDF/Atom syndication feeds</title>
