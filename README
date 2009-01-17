@@ -275,14 +275,15 @@ OPTIONS FOR PARSING XML
     A hash for <child> element above is blessed to "MyElement::child" class.
 
   xml_deref
-    This dereferences the character references, like &#xEB;, &#28450; etc.,
-    in XML document
+    This option dereferences the numeric character references, like &#xEB;,
+    &#28450;, etc., in an XML document when this value is true.
 
         $tpp->set( xml_deref => 1 );
 
-    Note that, for security reasons and your convenient, the entity
-    references, &amp;, &lt;, &gt;, &apos; and &quot;, and the character
-    references up to U+007F are dereferenced without xml_deref per default.
+    Note that, for security reasons and your convenient, this module
+    dereferences the predefined character entity references, &amp;, &lt;,
+    &gt;, &apos; and &quot;, and the numeric character references up to
+    U+007F without xml_deref per default.
 
 OPTIONS FOR WRITING XML
   first_out
@@ -308,7 +309,8 @@ OPTIONS FOR WRITING XML
 
   xml_decl
     This module inserts an XML declaration on top of the XML document
-    generated per default. This option forces to change or leave it.
+    generated per default. This option forces to change it to another or
+    just remove it.
 
         $tpp->set( xml_decl => '' );
 

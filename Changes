@@ -1,12 +1,14 @@
 # XML::TreePP Changes
 
 2009/01/17 (0.37)
-    * new option: xml_deref dereferences the character references, 
+    * new option: xml_deref dereferences the numeric character references, 
       like &#xEB;, &#28450; etc. 
       Now UTF-8 flag is correctly treated. (thanks to haarg)
       http://rt.cpan.org/Public/Bug/Display.html?id=42347
-    * without xml_deref option, the character references between 
+    * without xml_deref option, the numeric character references between 
       U+0080 and U+00FF are not dereferenced any more.
+      the numeric character references up to U+007F and the predefined 
+      character entity references are still dereferenced per default.
     * supports Perl 5.8.4 which includes Encode 1.99_01. (thanks to SAPER)
       http://rt.cpan.org/Public/Bug/Display.html?id=41986
 

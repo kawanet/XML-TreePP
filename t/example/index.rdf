@@ -92,8 +92,8 @@
 <rdf:li rdf:resource="http://www.kawa.net/works/cantonese/ccdict.html" />
 <rdf:li rdf:resource="http://www.kawa.net/works/js/data-scheme/base64-e.html" />
 <rdf:li rdf:resource="http://www.kawa.net/works/greasemonkey/myscripts-e.html" />
-<rdf:li rdf:resource="http://www.kawa.net/works/ajax/rss/rss-box-e.html" />
 <rdf:li rdf:resource="http://www.kawa.net/works/ajax/tips/mimetype/content-type-e.html" />
+<rdf:li rdf:resource="http://www.kawa.net/works/ajax/rss/rss-box-e.html" />
 <rdf:li rdf:resource="http://www.kawa.net/works/js/passwd/gen-passwds-e.html" />
 <rdf:li rdf:resource="http://www.kawa.net/works/perl/catch/KCatch.pm.html" />
 </rdf:Seq>
@@ -1082,19 +1082,19 @@ Firefox and Opera supports the data: scheme, but IE doesn&apos;t yet.</descripti
 <description>Here are my User Scripts
 for Greasemonkey.</description>
 </item>
+<item rdf:about="http://www.kawa.net/works/ajax/tips/mimetype/content-type-e.html">
+<title>[ajax] Content-Type: availablity on XMLHttpRequest</title>
+<link>http://www.kawa.net/works/ajax/tips/mimetype/content-type-e.html</link>
+<dc:date>2006-02-09T01:05:00+09:00</dc:date>
+<dc:subject>ajax</dc:subject>
+<description>Some of content-types are only available on many browsers&apos; XMLHttpRequest.</description>
+</item>
 <item rdf:about="http://www.kawa.net/works/ajax/rss/rss-box-e.html">
 <title>[ajax] RSS BOX in your website</title>
 <link>http://www.kawa.net/works/ajax/rss/rss-box-e.html</link>
 <dc:date>2006-02-09T01:04:00+09:00</dc:date>
 <dc:subject>ajax</dc:subject>
 <description>How to put a RSS BOX in your website.</description>
-</item>
-<item rdf:about="http://www.kawa.net/works/ajax/tips/mimetype/content-type-e.html">
-<title>[ajax] Content-Type: availablity on XMLHttpRequest</title>
-<link>http://www.kawa.net/works/ajax/tips/mimetype/content-type-e.html</link>
-<dc:date>2006-02-09T01:04:00+09:00</dc:date>
-<dc:subject>ajax</dc:subject>
-<description>Some of content-types are only available on many browsers&apos; XMLHttpRequest.</description>
 </item>
 <item rdf:about="http://www.kawa.net/works/js/passwd/gen-passwds-e.html">
 <title>JavaScript: Generating Random Passwords</title>
