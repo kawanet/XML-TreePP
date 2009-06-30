@@ -1,5 +1,12 @@
 # XML::TreePP Changes
 
+2009/06/30 (0.38)
+    * parsehttp now uses decoded_content method under LWP 5.802.
+      This allows compressed content by Content-Encoding: gzip, etc.
+      (thanks to cormanaz and ikegami)
+      http://perlmonks.org/?node_id=774537
+      http://rt.cpan.org/Public/Bug/Display.html?id=47336
+
 2009/01/17 (0.37)
     * new option: xml_deref dereferences the numeric character references, 
       like &#xEB;, &#28450; etc. 

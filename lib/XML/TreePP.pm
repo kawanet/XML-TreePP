@@ -419,7 +419,7 @@ use Carp;
 use Symbol;
 
 use vars qw( $VERSION );
-$VERSION = '0.37';
+$VERSION = '0.38';
 
 my $XML_ENCODING      = 'UTF-8';
 my $INTERNAL_ENCODING = 'UTF-8';
@@ -631,7 +631,12 @@ sub parsehttp_lwp {
     $req->content($body) if defined $body;
     my $res = $ua->request($req);
     my $code = $res->code();
-    my $text = $res->content();
+    my $text;
+    if ( $res->can( 'decoded_content' )) {
+        $text = $res->decoded_content( charset => 'none' );
+    } else {
+        $text = $res->content();       # less than LWP 5.802
+    }
     my $tree = $self->parse( \$text ) if $res->is_success();
     wantarray ? ( $tree, $text, $code ) : $tree;
 }
