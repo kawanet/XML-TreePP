@@ -1,11 +1,19 @@
 # XML::TreePP Changes
 
-2009/06/30 (0.38)
+2009/06/30 (0.39)
     * parsehttp now uses decoded_content method under LWP 5.802.
       This allows compressed content by Content-Encoding: gzip, etc.
       (thanks to cormanaz and ikegami)
       http://perlmonks.org/?node_id=774537
       http://rt.cpan.org/Public/Bug/Display.html?id=47336
+
+2009/03/01 (0.38)
+    * dies by "Invalid tree" when write() is called without a hash argument.
+    * warns by "Unsupported reference type" when write() is called with 
+      a tree which contains unsupported references, ex. BLOBREF.
+      It avoids  "Not a HASH reference" and "Can't use string as a HASH ref."
+    * dies by "Unknown encoding" when unknown encoding is used.
+    * No new features are added at this version except for the messages above.
 
 2009/01/17 (0.37)
     * new option: xml_deref dereferences the numeric character references, 

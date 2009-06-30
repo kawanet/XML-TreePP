@@ -419,7 +419,7 @@ use Carp;
 use Symbol;
 
 use vars qw( $VERSION );
-$VERSION = '0.38';
+$VERSION = '0.39';
 
 my $XML_ENCODING      = 'UTF-8';
 my $INTERNAL_ENCODING = 'UTF-8';
@@ -516,6 +516,10 @@ sub write {
     local $self->{__indent};
     if ( exists $self->{indent} && $self->{indent} ) {
         $self->{__indent} = ' ' x $self->{indent};
+    }
+
+    if ( ! UNIVERSAL::isa( $tree, 'HASH' )) {
+        return $self->die( 'Invalid tree' );
     }
 
     my $text = $self->hash_to_xml( undef, $tree );
@@ -975,6 +979,10 @@ sub hash_to_xml {
             if ( !defined $val ) {
                 push( @$out, "<$key />" );
             }
+            elsif ( UNIVERSAL::isa( $val, 'HASH' ) ) {
+                my $child = $self->hash_to_xml( $key, $val );
+                push( @$out, $child );
+            }
             elsif ( UNIVERSAL::isa( $val, 'ARRAY' ) ) {
                 my $child = $self->array_to_xml( $key, $val );
                 push( @$out, $child );
@@ -983,11 +991,9 @@ sub hash_to_xml {
                 my $child = $self->scalaref_to_cdata( $key, $val );
                 push( @$out, $child );
             }
-            elsif ( ref $val ) {
-                my $child = $self->hash_to_xml( $key, $val );
-                push( @$out, $child );
-            }
             else {
+                my $ref = ref $val;
+                $self->warn( "Unsupported reference type: $ref in $key" ) if $ref;
                 my $child = $self->scalar_to_xml( $key, $val );
                 push( @$out, $child );
             }
@@ -1030,6 +1036,10 @@ sub array_to_xml {
         if ( !defined $val ) {
             push( @$out, "<$name />\n" );
         }
+        elsif ( UNIVERSAL::isa( $val, 'HASH' ) ) {
+            my $child = $self->hash_to_xml( $name, $val );
+            push( @$out, $child );
+        }
         elsif ( UNIVERSAL::isa( $val, 'ARRAY' ) ) {
             my $child = $self->array_to_xml( $name, $val );
             push( @$out, $child );
@@ -1038,11 +1048,9 @@ sub array_to_xml {
             my $child = $self->scalaref_to_cdata( $name, $val );
             push( @$out, $child );
         }
-        elsif ( ref $val ) {
-            my $child = $self->hash_to_xml( $name, $val );
-            push( @$out, $child );
-        }
         else {
+            my $ref = ref $val;
+            $self->warn( "Unsupported reference type: $ref in $name" ) if $ref;
             my $child = $self->scalar_to_xml( $name, $val );
             push( @$out, $child );
         }
@@ -1128,18 +1136,24 @@ sub encode_from_to {
         &load_encode();
         my $encver = ( $Encode::VERSION =~ /^([\d\.]+)/ )[0];
         my $check = ( $encver < 2.13 ) ? 0x400 : Encode::FB_XMLCREF();
+
+        my $encfrom = Encode::find_encoding($from) if $from;
+        return $self->die( "Unknown encoding: $from" ) unless ref $encfrom;
+        my $encto   = Encode::find_encoding($to) if $to;
+        return $self->die( "Unknown encoding: $to" ) unless ref $encto;
+
         if ( $ALLOW_UTF8_FLAG && utf8::is_utf8( $$txtref ) ) {
             if ( $to =~ $RE_IS_UTF8 ) {
                 # skip
             } else {
-                $$txtref = Encode::encode( $to, $$txtref, $check );
+                $$txtref = $encto->encode( $$txtref, $check );
             }
         } else {
-            $$txtref = Encode::decode( $from, $$txtref );
+            $$txtref = $encfrom->decode( $$txtref );
             if ( $to =~ $RE_IS_UTF8 && $setflag ) {
                 # skip
             } else {
-                $$txtref = Encode::encode( $to, $$txtref, $check );
+                $$txtref = $encto->encode( $$txtref, $check );
             }
         }
     }

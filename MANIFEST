@@ -54,6 +54,9 @@ t/44_utf8_bom.t
 t/45_attr_space.t
 t/46_xml_deref.t
 t/47_xml_deref_utf8.t
+t/48_blobref.t
+t/49_invalid_encoding.t
+t/50_invalid_tree.t
 t/example/hello-en-latin1.xml
 t/example/hello-en-nodecl-bom.xml
 t/example/hello-en-nodecl.xml

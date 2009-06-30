@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               XML-TreePP
-version:            0.38
+version:            0.39
 abstract:           ~
 author:  []
 license:            perl
