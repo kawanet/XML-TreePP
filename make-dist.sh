@@ -21,7 +21,7 @@ egrep -v '^(lib/.*\.pm|t/.*\.t)$' MANIFEST > MANIFEST~
 ls Makefile.PL README Changes MANIFEST META.yml COPYING >> MANIFEST~ 2> /dev/null
 find lib -type f -name '*.pm' >> MANIFEST~
 ls t/*.t >> MANIFEST~
-sort MANIFEST~ | uniq > MANIFEST~~
+LC_ALL=C sort MANIFEST~ | uniq > MANIFEST~~
 /bin/mv -f MANIFEST~~ MANIFEST~
 diff MANIFEST MANIFEST~ > /dev/null || doit /bin/mv -f MANIFEST~ MANIFEST
 /bin/rm -f MANIFEST~
@@ -33,7 +33,8 @@ diff META.yml $newmeta > /dev/null || doit /bin/cp -f $newmeta META.yml
 
 doit make disttest
 
-main=`grep 'lib/.*pm$' < MANIFEST | head -1`
+name=`grep '^name:' META.yml | sed 's#^.*: *##; s#-#/#g;'`
+main=`grep "$name.pm$" < MANIFEST | head -1`
 [ "$main" == "" ] && die "main module is not found in MANIFEST"
 doit pod2text $main > README~
 diff README README~ > /dev/null || doit /bin/mv -f README~ README
