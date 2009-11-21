@@ -241,7 +241,7 @@ OPTIONS FOR PARSING XML
         $tpp->set( http_lite => $http );
 
   lwp_useragent
-    This option forces pasrsehttp() method to use a LWP::UserAgent instance.
+    This option forces parsehttp() method to use a LWP::UserAgent instance.
 
         my $ua = LWP::UserAgent->new();
         $ua->timeout( 60 );

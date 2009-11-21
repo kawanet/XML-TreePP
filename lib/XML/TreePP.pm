@@ -263,7 +263,7 @@ This option forces pasrsehttp() method to use a L<HTTP::Lite> instance.
 
 =head2 lwp_useragent
 
-This option forces pasrsehttp() method to use a L<LWP::UserAgent> instance.
+This option forces parsehttp() method to use a L<LWP::UserAgent> instance.
 
     my $ua = LWP::UserAgent->new();
     $ua->timeout( 60 );
@@ -419,7 +419,7 @@ use Carp;
 use Symbol;
 
 use vars qw( $VERSION );
-$VERSION = '0.39';
+$VERSION = '0.40';
 
 my $XML_ENCODING      = 'UTF-8';
 my $INTERNAL_ENCODING = 'UTF-8';

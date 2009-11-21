@@ -1,11 +1,11 @@
 Changes
+MANIFEST
+META.yml
+Makefile.PL
+README
 example/envxml.cgi
 lib/XML/TreePP.pm
 make-dist.sh
-Makefile.PL
-MANIFEST
-META.yml
-README
 t/00_pod.t
 t/01_parse.t
 t/02_write.t

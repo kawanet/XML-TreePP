@@ -1,5 +1,9 @@
 # XML::TreePP Changes
 
+2009/11/21 (0.40)
+    * pod typo fix: (thanks to jkutej)
+      http://annocpan.org/~KAWASAKI/XML-TreePP-0.39/lib/XML/TreePP.pm#note_2382
+
 2009/06/30 (0.39)
     * parsehttp now uses decoded_content method under LWP 5.802.
       This allows compressed content by Content-Encoding: gzip, etc.
