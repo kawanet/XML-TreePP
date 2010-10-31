@@ -1,5 +1,11 @@
 # XML::TreePP Changes
 
+2010/10/31 (0.41)
+    * require_xml_decl option added. thanks to nicomen
+      https://rt.cpan.org/Ticket/Display.html?id=42441
+    * empty element when #text node is undef
+      http://www.kawa.net/works/perl/treepp/treepp.html#com-2009-07-23T16:38:09Z
+
 2009/11/21 (0.40)
     * pod typo fix: (thanks to jkutej)
       http://annocpan.org/~KAWASAKI/XML-TreePP-0.39/lib/XML/TreePP.pm#note_2382

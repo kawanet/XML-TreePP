@@ -285,6 +285,14 @@ OPTIONS FOR PARSING XML
     &gt;, &apos; and &quot;, and the numeric character references up to
     U+007F without xml_deref per default.
 
+  require_xml_decl
+    This option requires XML declaration at the top of XML document to
+    parse.
+
+        $tpp->set( require_xml_decl => 1 );
+
+    This will die when <?xml .../?> declration not found.
+
 OPTIONS FOR WRITING XML
   first_out
     This option allows you to specify a list of element/attribute names
@@ -368,8 +376,13 @@ OPTIONS FOR BOTH
 AUTHOR
     Yusuke Kawasaki, http://www.kawa.net/
 
-COPYRIGHT AND LICENSE
-    Copyright (c) 2006-2009 Yusuke Kawasaki. All rights reserved. This
-    program is free software; you can redistribute it and/or modify it under
-    the same terms as Perl itself.
+COPYRIGHT
+    The following copyright notice applies to all the files provided in this
+    distribution, including binary files, unless explicitly noted otherwise.
+
+    Copyright 2006-2010 Yusuke Kawasaki
+
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
 
