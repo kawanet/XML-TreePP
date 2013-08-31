@@ -654,7 +654,7 @@ sub parsehttp_lwp {
     if ( defined $body && ! $ct ) {
         $req->header( 'Content-Type' => 'application/x-www-form-urlencoded' );
     }
-    $req->content($body) if defined $body;
+    $req->add_content_utf8($body) if defined $body;
     my $res = $ua->request($req);
     my $code = $res->code();
     my $text;
