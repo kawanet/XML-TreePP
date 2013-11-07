@@ -1,5 +1,9 @@
 # XML::TreePP Changes
 
+2013/11/07 (0.42)
+    * add empty_element_tag_end option. thanks to Songmu
+      https://github.com/kawanet/XML-TreePP/pull/2
+
 2010/10/31 (0.41)
     * require_xml_decl option added. thanks to nicomen
       https://rt.cpan.org/Ticket/Display.html?id=42441

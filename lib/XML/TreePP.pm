@@ -996,6 +996,7 @@ sub hash_to_xml {
     my $prelen = $self->{__attr_prefix_len};
     my $pregex = $self->{__attr_prefix_rex};
     my $textnk = $self->{text_node_key};
+    my $tagend = $self->{empty_element_tag_end} || $EMPTY_ELEMENT_TAG_END;
 
     foreach my $keys ( $firstkeys, $allkeys, $lastkeys ) {
         next unless ref $keys;
@@ -1006,7 +1007,7 @@ sub hash_to_xml {
             my $val = $hash->{$key};
             if ( !defined $val ) {
                 next if ($key eq $textnk);
-                push( @$out, "<$key@{[ $self->{empty_element_tag_end} || $EMPTY_ELEMENT_TAG_END ]}" );
+                push( @$out, "<$key$tagend" );
             }
             elsif ( UNIVERSAL::isa( $val, 'HASH' ) ) {
                 my $child = $self->hash_to_xml( $key, $val );
@@ -1050,7 +1051,7 @@ sub hash_to_xml {
             $text = "<$name$jattr>$text</$name>\n";
         }
         else {
-            $text = "<$name$jattr@{[ $self->{empty_element_tag_end} || $EMPTY_ELEMENT_TAG_END ]}\n";
+            $text = "<$name$jattr$tagend\n";
         }
     }
     $text;
@@ -1061,9 +1062,11 @@ sub array_to_xml {
     my $name  = shift;
     my $array = shift;
     my $out   = [];
+    my $tagend = $self->{empty_element_tag_end} || $EMPTY_ELEMENT_TAG_END;
+
     foreach my $val (@$array) {
         if ( !defined $val ) {
-            push( @$out, "<$name@{[ $self->{empty_element_tag_end} || $EMPTY_ELEMENT_TAG_END ]}\n" );
+            push( @$out, "<$name$tagend\n" );
         }
         elsif ( UNIVERSAL::isa( $val, 'HASH' ) ) {
             my $child = $self->hash_to_xml( $name, $val );
