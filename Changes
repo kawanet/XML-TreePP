@@ -3,6 +3,9 @@
 2013/11/07 (0.42)
     * add empty_element_tag_end option. thanks to Songmu
       https://github.com/kawanet/XML-TreePP/pull/2
+    * ensure unicode transmitted proprely. thanks to xenoterracide
+      https://github.com/kawanet/XML-TreePP/pull/1
+    * it requires LWP 5.811 or later to use add_content_utf8 method in HTTP::Message
 
 2010/10/31 (0.41)
     * require_xml_decl option added. thanks to nicomen

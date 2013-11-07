@@ -19,8 +19,8 @@ my $PERL581 = 1 if ( $] >= 5.008001 );
 $opt->{PREREQ_PM}->{Jcode} = '0' unless $PERL581;
 
 eval { require 'LWP/UserAgent.pm'; };
-# LWP.pm 5.802 required for decoded_content method
-$opt->{PREREQ_PM}->{'LWP'} = '5.802' if $LWP::UserAgent::VERSION;
+# LWP.pm 5.811 is required for HTTP::Message add_content_utf8 method
+$opt->{PREREQ_PM}->{'LWP'} = '5.811' if $LWP::UserAgent::VERSION;
 $opt->{PREREQ_PM}->{'HTTP::Lite'} = '0' unless $LWP::UserAgent::VERSION;
 
 WriteMakefile( %$opt );
