@@ -362,6 +362,12 @@ encodings supported by Encode.pm. On Perl 5.6.x and before with
 Jcode.pm, you can use C<Shift_JIS>, C<EUC-JP>, C<ISO-2022-JP> and
 C<UTF-8>. The default value is C<UTF-8> which is recommended encoding.
 
+=head2 empty_element_tag_end
+
+    $tpp->set( empty_element_tag_end => '>' );
+
+Set characters which close empty tag. The default value is ' />'.
+
 =head1 OPTIONS FOR BOTH
 
 =head2 utf8_flag
@@ -443,6 +449,8 @@ my $ATTR_PREFIX       = '-';
 my $TEXT_NODE_KEY     = '#text';
 my $USE_ENCODE_PM     = ( $] >= 5.008 );
 my $ALLOW_UTF8_FLAG   = ( $] >= 5.008001 );
+
+my $EMPTY_ELEMENT_TAG_END = ' />';
 
 sub new {
     my $package = shift;
@@ -998,7 +1006,7 @@ sub hash_to_xml {
             my $val = $hash->{$key};
             if ( !defined $val ) {
                 next if ($key eq $textnk);
-                push( @$out, "<$key />" );
+                push( @$out, "<$key@{[ $self->{empty_element_tag_end} || $EMPTY_ELEMENT_TAG_END ]}" );
             }
             elsif ( UNIVERSAL::isa( $val, 'HASH' ) ) {
                 my $child = $self->hash_to_xml( $key, $val );
@@ -1042,7 +1050,7 @@ sub hash_to_xml {
             $text = "<$name$jattr>$text</$name>\n";
         }
         else {
-            $text = "<$name$jattr />\n";
+            $text = "<$name$jattr@{[ $self->{empty_element_tag_end} || $EMPTY_ELEMENT_TAG_END ]}\n";
         }
     }
     $text;
@@ -1055,7 +1063,7 @@ sub array_to_xml {
     my $out   = [];
     foreach my $val (@$array) {
         if ( !defined $val ) {
-            push( @$out, "<$name />\n" );
+            push( @$out, "<$name@{[ $self->{empty_element_tag_end} || $EMPTY_ELEMENT_TAG_END ]}\n" );
         }
         elsif ( UNIVERSAL::isa( $val, 'HASH' ) ) {
             my $child = $self->hash_to_xml( $name, $val );
