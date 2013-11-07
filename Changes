@@ -6,6 +6,8 @@
     * ensure unicode transmitted proprely. thanks to xenoterracide
       https://github.com/kawanet/XML-TreePP/pull/1
     * it requires LWP 5.811 or later to use add_content_utf8 method in HTTP::Message
+    * source repository is now on github
+      https://github.com/kawanet/XML-TreePP
 
 2010/10/31 (0.41)
     * require_xml_decl option added. thanks to nicomen

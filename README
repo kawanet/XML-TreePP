@@ -333,6 +333,11 @@ OPTIONS FOR WRITING XML
     use "Shift_JIS", "EUC-JP", "ISO-2022-JP" and "UTF-8". The default value
     is "UTF-8" which is recommended encoding.
 
+  empty_element_tag_end
+        $tpp->set( empty_element_tag_end => '>' );
+
+    Set characters which close empty tag. The default value is ' />'.
+
 OPTIONS FOR BOTH
   utf8_flag
     This makes utf8 flag on for every element's value parsed and makes it on

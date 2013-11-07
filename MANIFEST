@@ -60,6 +60,7 @@ t/50_invalid_tree.t
 t/51_RT_42441.t
 t/52_require_xml_decl.t
 t/53_empty_text_node.t
+t/54_empty_element_tag_end.t
 t/example/hello-en-latin1.xml
 t/example/hello-en-nodecl-bom.xml
 t/example/hello-en-nodecl.xml

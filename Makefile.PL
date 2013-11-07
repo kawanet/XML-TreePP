@@ -9,6 +9,8 @@ my $opt = {
 #       'HTTP::Lite'        =>  '0',
 #       'Jcode'             =>  '0', # on Perl 5.005/5.6.x
     },
+    ABSTRACT            =>  'Pure Perl implementation for parsing/writing XML documents',
+    AUTHOR              =>  'kawanet',
 };
 
 my $mm = $ExtUtils::MakeMaker::VERSION;

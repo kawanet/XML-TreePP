@@ -440,7 +440,7 @@ use Carp;
 use Symbol;
 
 use vars qw( $VERSION );
-$VERSION = '0.41';
+$VERSION = '0.42';
 
 my $XML_ENCODING      = 'UTF-8';
 my $INTERNAL_ENCODING = 'UTF-8';
