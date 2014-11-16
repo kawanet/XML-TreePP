@@ -635,7 +635,6 @@ sub parsehttp_lwp {
     my $ua = $self->{lwp_useragent} if exists $self->{lwp_useragent};
     if ( ! ref $ua ) {
         $ua = LWP::UserAgent->new();
-        $ua->timeout(10);
         $ua->env_proxy();
         $ua->agent( $self->{__user_agent} ) if defined $self->{__user_agent};
     } else {
