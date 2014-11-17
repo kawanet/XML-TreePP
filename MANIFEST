@@ -3,6 +3,7 @@ MANIFEST
 META.yml
 Makefile.PL
 README
+README.md
 example/envxml.cgi
 lib/XML/TreePP.pm
 make-dist.sh

@@ -1,5 +1,10 @@
 # XML::TreePP Changes
 
+2014/11/17 (0.43)
+    * Sync OpenBSD patches from their Ports tree. thanks to kucharskim
+      https://github.com/kawanet/XML-TreePP/pull/3
+    * README.md added
+
 2013/11/07 (0.42)
     * add empty_element_tag_end option. thanks to Songmu
       https://github.com/kawanet/XML-TreePP/pull/2

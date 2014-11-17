@@ -36,9 +36,14 @@ doit make disttest
 name=`grep '^name:' META.yml | sed 's#^.*: *##; s#-#/#g;'`
 main=`grep "$name.pm$" < MANIFEST | head -1`
 [ "$main" == "" ] && die "main module is not found in MANIFEST"
+
 doit pod2text $main > README~
 diff README README~ > /dev/null || doit /bin/mv -f README~ README
 /bin/rm -f README~
+
+doit pod2markdown $main > README.md~
+diff README.md README.md~ > /dev/null || doit /bin/mv -f README.md~ README.md
+/bin/rm -f README.md~
 
 doit make dist
 [ -d blib ] && doit /bin/rm -fr blib
