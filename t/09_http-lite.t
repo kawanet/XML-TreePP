@@ -21,10 +21,10 @@ sub parsehttp_get {
     my $tpp = XML::TreePP->new();
     my $name = ( $0 =~ m#([^/:\\]+)$# )[0];
     $tpp->set( user_agent => "$name " );
-    my $url = "http://use.perl.org/index.rss";
+    my $url = "http://rss.slashdot.org/Slashdot/slashdot";
     my $tree = $tpp->parsehttp( GET => $url );
     ok( ref $tree, $url );
-    like( $tree->{"rdf:RDF"}->{channel}->{link}, qr{^http://}, "$url link" );
+    like( $tree->{"rss"}->{channel}->{link}, qr{^http://}, "$url link" );
 }
 # ----------------------------------------------------------------
 sub parsehttp_post {
